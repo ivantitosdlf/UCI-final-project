@@ -18,9 +18,10 @@ This project implements a neural network model to predict the risk of heart dise
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your_username/heart-disease-predictor.git
-   cd heart-disease-predictor
+   git clone https://github.com/ivantitosdlf/UCI-final-project.git
+   cd UCI-final-project
    ```
+
 
 2. **Run interface.py**
    Executing ```streamlit run interface.py --server.runOnSave=false```
