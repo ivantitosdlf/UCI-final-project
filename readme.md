@@ -22,7 +22,7 @@ This project implements a neural network model to predict the risk of heart dise
    cd heart-disease-predictor
    ```
 
-2. ** Run interface.py**
+2. **Run interface.py**
    Executing ```streamlit run interface.py --server.runOnSave=false```
 
 3. **(Optional) Run train.py**
