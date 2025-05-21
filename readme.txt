@@ -14,10 +14,16 @@ This project implements a neural network model to predict the risk of heart dise
 
 ---
 
-## 🚀 Installation
+## 🚀 Execution
 
 1. Clone the repository:
 
 ```bash
 git clone https://github.com/your_username/heart-disease-predictor.git
 cd heart-disease-predictor
+
+2. Execute interface.py:
+
+To use the interface, execute: ```streamlit run interface.py --server.runOnSave=false```
+
+3. (optional) Run train.py to generate a new trained model.
