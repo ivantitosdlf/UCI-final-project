@@ -167,12 +167,12 @@ def train_NN(model, epochs, train_loader, val_loader, patience=None):
     
     plt.tight_layout()
     plt.savefig('output/plots/train_validation_plot.png')
+    print('Saved train validation plot at: output/plots ')
     
     print(f'Training complete. Best validation accuracy: {best_val_acc:.4f} at epoch {best_epoch+1}')
 
     torch.save(model.state_dict(), 'output/trained_models/trained_HeartDiseaseNN.pth')
-    print('Saved model.')
-
+    print('Saved model at output/trained_models.')
     
     return model
 
