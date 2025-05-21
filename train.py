@@ -13,7 +13,7 @@ import joblib
 from model import HeartDiseaseNN
 
 # ================= CONFIG =================
-dataset_path = 'heart.csv'
+dataset_path = 'data/heart.csv'
 epochs = 250
 
 # ================ FUNCTIONS ===============
