@@ -14,7 +14,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 # ──────────
 # NOTE: Para evitar el error de torch.classes en desarrollo de Streamlit,
 #        ejecuta:
-#        streamlit run app.py --server.runOnSave=false
+#        streamlit run interface.py --server.runOnSave=false
 # o bien configura la variable de entorno:
 #        STREAMLIT_WATCHED_MODULES=""
 # ──────────
@@ -36,14 +36,10 @@ class HeartDiseaseNN(nn.Module):
         x = self.fc3(x)
         return torch.softmax(x, dim=1)
 
-# Cargar modelo y scaler
-with open('model.pkl', 'rb') as f:
-    model = pickle.load(f)
-with open('scaler.pkl', 'rb') as f:
-    scaler = pickle.load(f)
+
 
 # Cargar y preparar datos
-def load_data(path='heart.csv'):
+def load_data(scaler,path='heart.csv'):
     data = pd.read_csv(path)
     categorical_cols = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
     label_encoders = {}
@@ -67,8 +63,15 @@ def load_data(path='heart.csv'):
     val_loader = DataLoader(TensorDataset(X_val, y_val), batch_size=32)
     return data, label_encoders, X, y, X_train, X_val, y_train, y_val, train_loader, val_loader
 
-data, label_encoders, X, y, *_ = load_data()
+# Cargar scaler
+scaler = joblib.load('output/scalers/scaler.pkl')
+
+data, label_encoders, X, y, X_train, *_ = load_data(scaler = scaler)
 feature_names = data.columns[:-1].tolist()
+
+# Cargar modelo
+model = HeartDiseaseNN(X_train.shape[1])
+model.load_state_dict(torch.load('output/trained_models/trained_HeartDiseaseNN.pth'))
 
 # Streamlit UI
 st.title("❤️ Heart Disease Risk Predictor")
