@@ -39,7 +39,7 @@ class HeartDiseaseNN(nn.Module):
 
 
 # Cargar y preparar datos
-def load_data(scaler,path='heart.csv'):
+def load_data(scaler,path='data/heart.csv'):
     data = pd.read_csv(path)
     categorical_cols = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
     label_encoders = {}
