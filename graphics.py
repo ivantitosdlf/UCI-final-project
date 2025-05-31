@@ -3,7 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-def generate_and_save_statistics(data_path='heart.csv', output_dir='plots'):
+def generate_and_save_statistics(data_path='data/heart.csv', output_dir='plots'):
     import os
     os.makedirs(output_dir, exist_ok=True)
     
