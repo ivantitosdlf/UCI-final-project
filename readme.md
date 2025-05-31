@@ -9,7 +9,8 @@ This project implements a neural network model to predict the risk of heart dise
 - **train.py**: Code to load data, train the model, and save the trained model and scaler.  
 - **model.py**: Definition of the neural network architecture `HeartDiseaseNN`.  
 - **interface.py**: Streamlit app to input patient data and get predictions with explanations.  
-- **heart.csv**: .  
+- **graphics.py**: Generates statistical graphics from the dataset
+- **heart.csv**: Heart failure dataset used to train the model, obtained from [text](https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction)
 - **output/**: Folder with subfolders for trained models, scalers, and plots.  
 - **data/**: Folder with original dataset with clinical data **heart.csv** 
 ---
