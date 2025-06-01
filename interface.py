@@ -31,7 +31,7 @@ def display_saved_plots():
     st.markdown("[🔗 View the dataset on Kaggle](https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction)")
     st.text("Our model is a neural network trained to achieve approximately 90% accuracy.")
     st.header("📊 Heart Disease Dataset Statistics")
-    st.text("This are the statistics of the dataset used by the model to get trained.")
+    st.text("These are the statistics of the dataset used by the model to get trained.")
     # Mostrar heatmap de correlación
     st.subheader("Feature Correlation Heatmap")
     st.image("plots/correlation_heatmap.png")
