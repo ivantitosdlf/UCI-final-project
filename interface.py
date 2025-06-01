@@ -94,7 +94,6 @@ feature_names = data.columns[:-1].tolist()
 model = HeartDiseaseNN(X_train.shape[1])
 model.load_state_dict(torch.load('output/trained_models/trained_HeartDiseaseNN.pth'))
 
-
 feature_names = data.columns[:-1].tolist()
 if 'page' not in st.session_state:
     st.session_state.page = 'predictor'
