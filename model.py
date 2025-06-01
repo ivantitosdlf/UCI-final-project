@@ -5,7 +5,7 @@ class HeartDiseaseNN(nn.Module):
         super().__init__()
         self.fc1 = nn.Linear(input_size, 32)
         self.fc2 = nn.Linear(32, 16)
-        self.fc3 = nn.Linear(16, 2)  # 2 output classes
+        self.fc3 = nn.Linear(16, 2) 
         self.dropout = nn.Dropout(0.2)
         self.relu = nn.ReLU()
         
