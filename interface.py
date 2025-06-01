@@ -34,7 +34,7 @@ def display_saved_plots():
     st.text("This are the statistics of the dataset used by the model to get trained.")
     # Mostrar heatmap de correlación
     st.subheader("Feature Correlation Heatmap")
-    st.image("plots/correlation_heatmap.png", use_container_width=True)
+    st.image("plots/correlation_heatmap.png")
 
     # Mostrar distribuciones individuales
     
@@ -43,7 +43,7 @@ def display_saved_plots():
         if  file.endswith("distribution.png"):
             variable_name = file.replace("dist_", "").replace(".png", "").replace("_", " ").title()
             st.subheader(variable_name)
-            st.image(f"plots/{file}", use_container_width=True)
+            st.image(f"plots/{file}")
 
 class HeartDiseaseNN(nn.Module):
     def __init__(self, input_size):
