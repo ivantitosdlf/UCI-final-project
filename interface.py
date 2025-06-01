@@ -26,20 +26,24 @@ import os
 import streamlit as st
 
 def display_saved_plots():
-    st.header("📊 Heart Disease Dataset Statistics (Saved)")
-
+    st.header("More about the model")
+    st.text("To get your prediction we have used a deep learning model trained with this dataset:")
+    st.markdown("[🔗 View the dataset on Kaggle](https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction)")
+    st.text("Our model is a neural network trained to achieve approximately 90% accuracy.")
+    st.header("📊 Heart Disease Dataset Statistics")
+    st.text("This are the statistics of the dataset used by the model to get trained.")
     # Mostrar heatmap de correlación
     st.subheader("Feature Correlation Heatmap")
-    st.image("plots/correlation_heatmap.png")
+    st.image("plots/correlation_heatmap.png", use_container_width=True)
 
     # Mostrar distribuciones individuales
-    st.header("📂 Individual Feature Distributions")
+    
 
     for file in sorted(os.listdir("plots")):
         if  file.endswith("distribution.png"):
             variable_name = file.replace("dist_", "").replace(".png", "").replace("_", " ").title()
             st.subheader(variable_name)
-            st.image(f"plots/{file}")
+            st.image(f"plots/{file}", use_container_width=True)
 
 class HeartDiseaseNN(nn.Module):
     def __init__(self, input_size):
@@ -297,17 +301,7 @@ if st.session_state.page == 'predictor':
         else:
             shap_class1 = shap_arr
 
-        # Contribuciones numéricas
-        #contributions = dict(zip(feature_names, shap_class1[0]))
-        #st.markdown("**Feature contributions (ordenado por magnitud):**")
-        #for feat, val in sorted(contributions.items(), key=lambda x: abs(x[1]), reverse=True):
-        #   st.write(f"- {feat}: {val:.4f}")
-
-        # Gráfico SHAP para clase positiva
-        #fig = plt.figure(figsize=(10, 4))
-        #shap.summary_plot(shap_class1, input_scaled, feature_names=feature_names, plot_type="bar", show=False)
-        #st.pyplot(fig)
-        # SHAP devuelve una matriz de tamaño (1, num_features, num_classes)
+        
     # Queremos la explicación del primer sample, clase 1 (enfermedad)
         single_explanation = shap.Explanation(
             values=shap_values.values[0][:, 1],
@@ -316,7 +310,7 @@ if st.session_state.page == 'predictor':
             feature_names=feature_names
         )
 
-        # Gráfico tipo Waterfall
+         # Gráfico tipo Waterfall
         st.markdown("### 📉 SHAP Waterfall Plot")
         st.text("Shows how each feature pushes the risk prediction up or down.")
 
@@ -329,10 +323,41 @@ if st.session_state.page == 'predictor':
         # Capturar figura actual
         fig = plt.gcf()
 
+
+
+
+
+
+        
         # Mostrar en Streamlit
         st.pyplot(fig)
 
-        st.text("We recommend you to revise the important red features with your doctor")
+        st.text("We recommend you to revise the features in red with your doctor")
+
+        num_samples = 500
+        simulated_indices = np.random.choice(range(X.shape[0]), size=num_samples, replace=False)
+        simulated_inputs = X[simulated_indices]
+        simulated_inputs_scaled = scaler.transform(simulated_inputs)
+
+        # Añadir el input actual del usuario al conjunto
+        combined_inputs = np.vstack([input_df.values, simulated_inputs])
+        combined_scaled = scaler.transform(combined_inputs)
+
+        # Obtener nuevas SHAP values para el conjunto combinado
+        shap_values_combined = explainer(combined_scaled)
+
+        # Mostrar dot plot usando todas las explicaciones para clase positiva
+        st.markdown("### 🧬 SHAP Summary Dot Plot")
+
+        fig2 = plt.figure(figsize=(10, 5))
+        shap.summary_plot(
+            shap_values_combined.values[:, :, 1],  # Solo clase positiva
+            combined_scaled,
+            feature_names=feature_names,
+            plot_type="dot",
+            show=False
+        )
+        st.pyplot(fig2)
 
 
     
